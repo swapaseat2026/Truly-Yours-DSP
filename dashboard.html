@@ -4,11 +4,33 @@
 
 <h2>Artist Dashboard</h2>
 
-<p>Status: Uploads Active</p>
-<p>Payouts: Locked until payment</p>
+<p id="status"></p>
 
 <a href="upload.html">Upload Music</a><br><br>
-<a href="pricing.html">Activate Subscription</a>
+<button onclick="requestPayout()">Request Payout</button><br><br>
+
+<a href="pricing.html">Manage Subscription</a>
+
+<script>
+let paid = localStorage.getItem("paid");
+
+if(paid === "true"){
+  document.getElementById("status").innerHTML =
+    "✅ Subscription Active – Payouts Enabled";
+} else {
+  document.getElementById("status").innerHTML =
+    "⚠ Subscription Inactive – Earnings Locked";
+}
+
+function requestPayout(){
+  if(paid === "true"){
+    window.location.href = "https://forms.gle/YOUR_PAYOUT_FORM";
+  } else {
+    alert("Activate your subscription to unlock payouts.");
+  }
+}
+</script>
 
 </body>
 </html>
+
