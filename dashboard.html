@@ -54,7 +54,8 @@ Request Payout
 Manage Subscription
 </button>
 
-<script>
+<script> const adminEmail = "YOUR_EMAIL@example.com";
+const currentUser = localStorage.getItem("currentUser");
 const paid = localStorage.getItem("paid");
 
 if (paid === "true") {
