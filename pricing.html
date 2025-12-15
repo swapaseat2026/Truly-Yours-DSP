@@ -2,32 +2,70 @@
 <html>
 <head>
   <title>Pricing - Truly Yours DSP</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .price-box {
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #222;
+    }
+  </style>
 </head>
+
 <body>
 
-<h2>Pricing</h2>
+<h1>Pricing</h1>
 
-<p><strong>$20/month</strong> – Music uploads + payouts</p>
-<p><strong>$10/month</strong> – Video uploads (optional)</p>
+<div class="price-box">
+  <h2>$20 / month</h2>
+  <p>Music uploads + payouts unlocked</p>
 
-<p>Music stays live even if you don’t pay, but payouts are locked.</p>
+  <button onclick="window.open(
+    'https://buy.stripe.com/test_28E28t4yEeXR4ONbkS7Vm03',
+    '_blank'
+  )">
+    Subscribe – $20/month
+  </button>
+</div>
 
-<hr>
+<div class="price-box">
+  <h2>$10 / month</h2>
+  <p>Video uploads (optional)</p>
 
-<!-- ✅ Stripe Links (Clickable Buttons) -->
+  <button onclick="window.open(
+    'https://buy.stripe.com/test_dRmfZj4yE5nhdlj60y7Vm02',
+    '_blank'
+  )">
+    Add Video Upload – $10/month
+  </button>
+</div>
+
 <p>
-  <a href="https://buy.stripe.com/test_28E28t4yEeXR4ONbkS7Vm03" target="_blank">
-    ✅ Subscribe – $20/month
-  </a>
+Music stays live even if you don’t pay, but payouts are locked.
 </p>
 
-<p>
-  <a href="https://buy.stripe.com/test_dRmfZj4yE5nhdlj60y7Vm02" target="_blank">
-    🎥 Add Video Upload – $10/month
-  </a>
-</p>
+<br>
 
-<p><a href="dashboard.html">← Back to Dashboard</a></p>
+<a href="dashboard.html">← Back to Dashboard</a>
 
 </body>
 </html>
+
