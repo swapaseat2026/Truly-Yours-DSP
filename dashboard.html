@@ -36,17 +36,23 @@
 
 <h1>Artist Dashboard</h1>
 
-<p id="status" class="status"></p>
+<div style="
+  max-width:500px;
+  margin:40px auto;
+  padding:30px;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  background:rgba(255,255,255,0.03);
+">
 
-<button onclick="location.href='upload.html'">
-Upload Music
-</button>
+  <p id="status" style="margin-bottom:20px;"></p>
 
-<br>
+  <button onclick="location.href='upload.html'">Upload Music</button>
+  <button onclick="location.href='pricing.html'">Manage Subscription</button>
+  <button onclick="requestPayout()">Request Payout</button>
 
-<button onclick="requestPayout()">
-Request Payout
-</button>
+</div>
+
 
 <br>
 
