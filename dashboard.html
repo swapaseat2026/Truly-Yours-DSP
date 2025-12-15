@@ -39,6 +39,20 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
+  /* 🔥 FIREBASE INIT — MUST BE FIRST */
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_API_KEY",
+  authDomain: "PASTE_AUTH_DOMAIN",
+  projectId: "PASTE_PROJECT_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+/* 🔽 YOUR EXISTING CODE STAYS BELOW THIS LINE 🔽 */
+
 /* 1️⃣ ADMIN SETUP */
 const adminEmail = "YOUR_EMAIL@example.com";
 const currentUser = localStorage.getItem("currentUser");
