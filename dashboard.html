@@ -55,6 +55,11 @@ Manage Subscription
 </button>
 
 <script>
+/* 🔐 ADMIN SETUP — MUST BE FIRST */
+const adminEmail = "YOUR_EMAIL@example.com"; // 🔴 PUT YOUR REAL EMAIL HERE
+const currentUser = localStorage.getItem("currentUser");
+
+/* 💳 SUBSCRIPTION STATUS */
 const paid = localStorage.getItem("paid");
 
 if (paid === "true") {
@@ -65,6 +70,7 @@ if (paid === "true") {
     "⚠ Subscription Inactive – Earnings Locked";
 }
 
+/* 💸 PAYOUT BUTTON */
 function requestPayout() {
   if (paid === "true") {
     window.open("https://forms.gle/YOUR_PAYOUT_FORM", "_blank");
@@ -72,7 +78,26 @@ function requestPayout() {
     alert("Activate your subscription to unlock payouts.");
   }
 }
+
+/* 🛠 ADMIN PANEL VISIBILITY */
+if (currentUser === adminEmail) {
+  document.getElementById("adminPanel").style.display = "block";
+}
+
+/* 🛠 ADMIN ACTIONS */
+function forceActivate() {
+  localStorage.setItem("paid", "true");
+  alert("Subscription activated");
+  location.reload();
+}
+
+function forceDeactivate() {
+  localStorage.setItem("paid", "false");
+  alert("Subscription deactivated");
+  location.reload();
+}
 </script>
+
 
 
 </body>
