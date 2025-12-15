@@ -1,20 +1,63 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Dashboard - Truly Yours DSP</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      padding: 15px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: #222;
+    }
+
+    .status {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
 <body>
 
-<h2>Artist Dashboard</h2>
+<h1>Artist Dashboard</h1>
 
-<p id="status"></p>
+<p id="status" class="status"></p>
 
-<a href="upload.html">Upload Music</a><br><br>
-<button onclick="requestPayout()">Request Payout</button><br><br>
+<button onclick="location.href='upload.html'">
+Upload Music
+</button>
 
-<a href="pricing.html">Manage Subscription</a>
+<br>
+
+<button onclick="requestPayout()">
+Request Payout
+</button>
+
+<br>
+
+<button onclick="location.href='pricing.html'">
+Manage Subscription
+</button>
 
 <script>
-let paid = localStorage.getItem("paid");
+const paid = localStorage.getItem("paid");
 
-if(paid === "true"){
+if (paid === "true") {
   document.getElementById("status").innerHTML =
     "✅ Subscription Active – Payouts Enabled";
 } else {
@@ -22,9 +65,9 @@ if(paid === "true"){
     "⚠ Subscription Inactive – Earnings Locked";
 }
 
-function requestPayout(){
-  if(paid === "true"){
-    window.location.href = "https://forms.gle/YOUR_PAYOUT_FORM";
+function requestPayout() {
+  if (paid === "true") {
+    window.open("https://forms.gle/YOUR_PAYOUT_FORM", "_blank");
   } else {
     alert("Activate your subscription to unlock payouts.");
   }
@@ -33,3 +76,4 @@ function requestPayout(){
 
 </body>
 </html>
+
