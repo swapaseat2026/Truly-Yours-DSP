@@ -1,0 +1,3 @@
+<button onclick="localStorage.setItem('paid','true')">
+Activate Subscription (TEMP)
+</button>
