@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create Account</h2>
+
+<form onsubmit="signup(event)">
+  <input type="email" id="email" placeholder="Email" required><br><br>
+  <input type="password" id="password" placeholder="Password" required><br><br>
+  <button type="submit">Sign Up</button>
+</form>
+
+<script>
+function signup(e){
+  e.preventDefault();
+  localStorage.setItem(
+    document.getElementById("email").value,
+    document.getElementById("password").value
+  );
+  alert("Account created");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
