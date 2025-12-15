@@ -2,17 +2,26 @@
 <html>
 <body>
 
-<h2>Upload Your Music</h2>
+<h2>Music Video (YouTube)</h2>
 
-<input type="file" accept="audio/*"><br><br>
+<input
+  id="youtubeLink"
+  type="text"
+  placeholder="Paste your YouTube channel or video link"
+  style="width:90%; max-width:420px; padding:12px; margin-bottom:10px;"
+>
 
-<h3>Upload Video (Optional – $10/month)</h3>
-<input type="file" accept="video/*">
+<br>
 
-<p>
-Your music can earn immediately.  
-Payouts unlock once your subscription is active.
-</p>
+<button onclick="goToYouTube()">Go to My YouTube</button>
 
-</body>
-</html>
+<script>
+function goToYouTube() {
+  const link = document.getElementById("youtubeLink").value;
+  if (!link) {
+    alert("Paste your YouTube link");
+    return;
+  }
+  window.open(link, "_blank");
+}
+</script>
