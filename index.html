@@ -15,15 +15,32 @@
   text-align:center;
   padding:40px;
 } 
-   <h2>🎤 Artist Spotlight</h2>
+  <h2>🎤 Artist Spotlight</h2>
 
-<div style="background:rgba(0,0,0,0.4); padding:20px; border-radius:18px;">
+<div style="
+  background:rgba(0,0,0,0.4);
+  border-radius:18px;
+  padding:20px;
+  max-width:420px;
+  margin:20px auto;
+  text-align:left;
+">
 
-  <h3 style="color:#ff7a00;">Artist Name</h3>
+  <h3 style="color:#ff7a00; margin-top:0;">
+    Artist Name
+  </h3>
 
-  <audio controls>
-    <source src="spotlight.mp3" type="audio/mpeg">
-  </audio>
+  <p style="font-size:14px; opacity:0.85;">
+    Featured independent artist on Truly Yours DSP.
+  </p>
+
+  <button onclick="location.href='listen.html'">
+    Listen Now
+  </button>
+
+  <button onclick="window.open('https://youtube.com','_blank')">
+    Visit YouTube
+  </button>
 
 </div>
 
