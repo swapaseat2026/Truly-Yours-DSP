@@ -1,44 +1,83 @@
 <!DOCTYPE html>
 <html>
-<head><head>
+<head>
   <title>Truly Yours DSP</title>
 
-  <!-- PASTE STYLE HERE -->
- <body>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
- <!-- TOP BRAND -->
-<div style="
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:30px;
-">
-  <img src="logo.png" style="width:48px;">
-  <h2 style="margin:0; line-height:1.1;">
-    Truly Yours<br>DSP
-  </h2>
-</div>
+    :root {
+      --neon-pink: #ff2bd1;
+      --neon-purple: #7a00ff;
+      --dark-bg: #050008;
+    }
 
-<!-- HERO -->
-<div class="hero">
-  <h1>
-    DROP YOUR MUSIC.<br>
-    <span>OWN YOUR WAVE.</span>
-  </h1>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, #18001f, transparent 40%),
+        radial-gradient(circle at 80% 20%, #0a0014, transparent 40%),
+        var(--dark-bg);
+      color: #fff;
+    }
 
-  <p>
-    Upload once. Get heard everywhere.  
-    Built for artists — not labels.
-  </p>
+    .hero {
+      min-height: 100vh;
+      padding: 90px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1100px;
+      margin: auto;
+    }
 
-  <button onclick="location.href='upload.html'">
-    GET STARTED
-  </button>
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.05;
+    }
 
-  <div class="tagline">
-    No contracts • No gatekeepers • 100% artist energy
-  </div>
-</div>
+    .hero h1 span {
+      background: linear-gradient(135deg, #ff2bd1, #7a00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 25px rgba(255,43,209,.5);
+    }
+
+    .hero p {
+      font-size: 1rem;
+      max-width: 520px;
+      opacity: 0.85;
+    }
+
+    .hero button {
+      background: linear-gradient(135deg, #ff2bd1, #7a00ff);
+      border: none;
+      padding: 14px 32px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      border-radius: 999px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 25px rgba(255,43,209,.4);
+    }
+
+    .hero button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 45px rgba(255,43,209,.6);
+    }
+
+    .tagline {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+  </style>
+</head>
 
 <!-- SPOTLIGHT TITLE -->
 <div style="padding:40px 30px;">
