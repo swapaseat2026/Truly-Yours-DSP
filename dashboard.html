@@ -77,13 +77,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 🔐 CHECK IF USER IS LOGGED IN
+// CHECK IF USER IS LOGGED IN
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("artistname").innerText = user.email.split("@")[0];
   } else {
     console.log("User not logged in – sending to login");
-    location.href = "login.html";
+    location.href = "login.html";  // <= stays here
   }
 });
 
