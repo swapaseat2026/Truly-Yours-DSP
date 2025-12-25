@@ -83,11 +83,12 @@
 
 <script>
 firebase.auth().onAuthStateChanged(user => {
-  if(user){
-    document.getElementById("artistname").innerText = user.email.split("@")[0];
-  } else {
-    location.href = "login.html"; // force login
-  }
+    if(user){
+        document.getElementById("artistname").innerText = user.email.split("@")[0];
+    } else {
+        // location.href = "login.html"; // force login TURNED OFF
+        console.log("No login detected — dashboard open for testing 👍");
+    }
 });
 </script>
 
