@@ -62,8 +62,7 @@
 <!-- 🔐 AUTH CHECK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } 
-  from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
@@ -77,22 +76,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// CHECK IF USER IS LOGGED IN
+// 🔥 THIS IS THE PART THAT STOPS BOUNCING BACK TO LOGIN
 onAuthStateChanged(auth, (user) => {
   if (user) {
     document.getElementById("artistname").innerText = user.email.split("@")[0];
   } else {
-    console.log("User not logged in – sending to login");
-    location.href = "login.html";  // <= stays here
+    location.href = "login.html"; // redirect ONLY if logged out
   }
 });
 
-// 🚪 Logout
+// LOGOUT OPTION
 window.logout = async () => {
-  await signOut(auth);
+  await auth.signOut();
   location.href = "login.html";
 };
 </script>
+
 
 <!-- ========== LOAD SONGS + STATS ========== -->
 <script type="module">
