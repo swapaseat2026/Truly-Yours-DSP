@@ -1,77 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login — Truly Yours DSP</title>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="firebase-init.js"></script>
-
-<style>
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #050008;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-form {
-  background: rgba(255,255,255,0.06);
-  padding: 30px;
-  border-radius: 12px;
-  width: 350px;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: none;
-}
-
-button {
-  margin-top: 20px;
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(135deg,#7a00ff,#ff2bd1);
-  border: none;
-  border-radius: 6px;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-button:hover { opacity:.85 }
-</style>
+  <title>Login | Truly Yours DSP</title>
 </head>
+
 <body>
 
-<form>
-  <h2>Login</h2>
+  <!-- your login form UI -->
   <input id="email" type="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-  <button type="button" onclick="login()">Login</button>
-  <p style="margin-top:10px;">No account?
-    <a href="signup.html" style="color:#ff2bd1;">Sign up</a>
-  </p>
-</form>
+  <button onclick="loginUser()">Login</button>
 
-<script>
-function login(){
-  const email = document.getElementById("email").value;
-  const pass  = document.getElementById("password").value;
+  <!-- 🔥 PUT THE SCRIPT RIGHT HERE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword,
+             browserLocalPersistence, setPersistence }
+    from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-  firebase.auth().signInWithEmailAndPassword(email, pass)
-  .then(() => {
-    alert("🔓 Logged in!");
-    location.href = "dashboard.html"
-  })
-  .catch(err => alert(err.message));
-}
-</script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+      authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+      projectId: "truly-yours-dsp-2025",
+      storageBucket: "truly-yours-dsp-2025.appspot.com",
+      messagingSenderId: "369021987682",
+      appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Login function
+    window.loginUser = async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await setPersistence(auth, browserLocalPersistence);
+        await signInWithEmailAndPassword(auth, email, password);
+        location.href = "dashboard.html"; // SUCCESS -> GO TO DASHBOARD
+      } catch (err) {
+        alert("Login failed: " + err.message);
+      }
+    };
+  </script>
+  <!-- 🔥 END OF SCRIPT -->
 
 </body>
 </html>
