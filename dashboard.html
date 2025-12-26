@@ -5,126 +5,123 @@
 <title>Artist Dashboard — Truly Yours DSP</title>
 
 <style>
-    body {
-        background:#0d001a;
-        color:white;
-        font-family:Arial, sans-serif;
-        margin:0;
-        padding:0;
-    }
-    .navbar {
-        background:rgba(255,255,255,0.05);
-        padding:12px;
-        display:flex;
-        gap:20px;
-        font-size:18px;
-    }
-    .navbar a { color:white; text-decoration:none; }
-    .container { padding:30px; }
-    li { margin-bottom:12px; }
-    button {
-        margin-top:6px;
-        padding:6px 12px;
-        cursor:pointer;
-        border-radius:5px;
-        border:none;
-        background:#ff2ff5;
-        color:black;
-    }
+  body {
+    background: #050008;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .navbar {
+    background: rgba(255,255,255,0.05);
+    padding: 12px;
+    display: flex;
+    gap: 20px;
+    font-size: 18px;
+  }
+  .navbar a { color: white; text-decoration: none; }
+  .container { padding: 30px; }
+  li { margin-bottom: 12px; }
+  button {
+    margin-top: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background: #ff2bd1;
+    color: black;
+  }
 </style>
 </head>
+
 <body>
 
-<!-- ===== NAV ===== -->
 <div class="navbar">
-    <a href="index.html">HOME</a>
-    <a href="upload.html">UPLOAD MORE</a>
-    <a href="#" onclick="logout()">LOG OUT</a>
+  <a href="index.html">HOME</a>
+  <a href="upload.html">UPLOAD</a>
 </div>
 
 <div class="container">
-    <h1>Welcome back, <span id="artistname"></span> 🎧</h1>
-    <p>Your wave is growing — keep dropping heat.</p>
+  <h1>Artist Dashboard</h1>
+  <p>Song uploads, plays, and stats</p>
 
-    <h2>Your Uploaded Songs 🎵</h2>
-    <ul id="songList">Loading...</ul>
+  <h2>Your Songs 🎧</h2>
+  <ul id="songList">Loading songs...</ul>
 </div>
 
-
-<!-- ===== LOAD SONGS + STATS ===== -->
+<!-- ========= DASHBOARD SCRIPT (NO LOGIN REQUIRED) ========= -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getStorage, ref, listAll, getDownloadURL } 
-from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } 
-from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getStorage, ref, listAll, getDownloadURL } 
+  from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } 
+  from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
-  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-  projectId: "truly-yours-dsp-2025",
-  storageBucket: "truly-yours-dsp-2025.appspot.com",
-  messagingSenderId: "369021987682",
-  appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+    projectId: "truly-yours-dsp-2025",
+    storageBucket: "truly-yours-dsp-2025.appspot.com",
+    messagingSenderId: "369021987682",
+    appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+  };
 
-const app = initializeApp(firebaseConfig);
-const storage = getStorage(app);
-const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+  const db = getFirestore(app);
+  const songList = document.getElementById("songList");
 
-const songList = document.getElementById("songList");
+  async function loadSongs() {
+    songList.innerHTML = "Loading...";
 
-async function loadSongs() {
-  songList.innerHTML = "Loading… 🔄";
+    const folder = ref(storage, "artists_audio");
+    const files = await listAll(folder);
 
-  const folder = ref(storage, "artists_audio/");
-  const files = await listAll(folder);
-
-  if (!files.items.length) {
-    songList.innerHTML = "<li>No songs yet — upload one 🔥</li>";
-    return;
-  }
-
-  songList.innerHTML = "";
-
-  for (const fileRef of files.items) {
-    const url = await getDownloadURL(fileRef);
-    const fileName = fileRef.name.replace(/^\d+-/, "");
-
-    const statRef = doc(db, "stats", fileRef.name);
-    let stats = await getDoc(statRef);
-
-    if (!stats.exists()) {
-      await setDoc(statRef, { plays: 0, views: 0 });
-      stats = await getDoc(statRef);
+    if (files.items.length === 0) {
+      songList.innerHTML = "<li>No songs yet — upload one 🔥</li>";
+      return;
     }
 
-    const { plays, views } = stats.data();
+    songList.innerHTML = "";
 
-    const li = document.createElement("li");
-    li.innerHTML = `
-      🎵 <strong>${fileName}</strong><br>
-      ▶️ Plays: ${plays} &nbsp; 👁 Views: ${views}<br>
-      <button onclick="playSong('${fileRef.name}', '${url}')">PLAY</button>
-    `;
-    songList.appendChild(li);
+    for (const fileRef of files.items) {
+      const url = await getDownloadURL(fileRef);
+      const filename = fileRef.name.replace(/^\d+-/, "");
+
+      const statsRef = doc(db, "stats", fileRef.name);
+      let statsSnap = await getDoc(statsRef);
+
+      if (!statsSnap.exists()) {
+        await setDoc(statsRef, { plays: 0, views: 0 });
+        statsSnap = await getDoc(statsRef);
+      }
+
+      const { plays, views } = statsSnap.data();
+
+      const li = document.createElement("li");
+      li.innerHTML = `
+        🎵 <strong>${filename}</strong><br>
+        ▶️ Plays: ${plays} &nbsp; 👁 Views: ${views}<br>
+        <button onclick="playSong('${fileRef.name}', '${url}')">PLAY</button>
+      `;
+      songList.appendChild(li);
+    }
   }
-}
 
-window.playSong = async (filename, url) => {
-  const audio = new Audio(url);
-  audio.play();
+  window.playSong = async (filename, url) => {
+    const audio = new Audio(url);
+    audio.play();
 
-  const statRef = doc(db, "stats", filename);
-  await updateDoc(statRef, {
-    plays: increment(1),
-    views: increment(1),
-  });
+    const statsRef = doc(db, "stats", filename);
+    await updateDoc(statsRef, {
+      plays: increment(1),
+      views: increment(1)
+    });
+
+    loadSongs();
+  };
 
   loadSongs();
-};
-
-loadSongs();
 </script>
 
 </body>
