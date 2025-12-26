@@ -110,7 +110,6 @@ input[type="text"] {
   font-size: 16px;
   font-weight: 700;
 }
-
 </style>
 </head>
 
@@ -121,6 +120,7 @@ input[type="text"] {
   <a href="index.html">HOME</a>
   <a href="about.html">ABOUT</a>
   <a href="pricing.html">PRICING</a>
+  <a href="dashboard.html">DASHBOARD</a>
 </div>
 
 <!-- UPLOAD BOX -->
@@ -139,12 +139,39 @@ input[type="text"] {
   <input id="youtubeLink" type="text" placeholder="Paste your YouTube link">
 
   <button onclick="goToYouTube()">Go to My YouTube</button>
+
+  <p style="margin-top:20px;">
+    <a href="dashboard.html" style="color: var(--neon-pink); font-weight:700;">Go to Dashboard ➜</a>
+  </p>
 </div>
 
 <!-- ==== FIREBASE ==== -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-<script src="firebase-init.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+import { 
+  getAuth, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+  projectId: "truly-yours-dsp-2025",
+  storageBucket: "truly-yours-dsp-2025.appspot.com",
+  messagingSenderId: "369021987682",
+  appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const storage = getStorage(app);
+
+// 🔐 MAKE SURE USER IS LOGGED IN
+onAuthStateChanged(auth, (user) => {
+  console.log("Upload page sees user:", user ? user.email : "none");
+});
+</script>
 
 <!-- ==== UPLOAD FUNCTIONS ==== -->
 <script>
@@ -179,32 +206,6 @@ function uploadSong() {
       status.innerText = "❌ Error: " + err.message;
     });
 }
-</script>
-
-  <p style="margin-top:20px;">
-  <a href="dashboard.html" style="color: var(--neon-pink); font-weight:700;">Go to Dashboard ➜</a>
-</p>
-<!-- ===== MAKE DASHBOARD BUTTON WORK ===== -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
-  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-  projectId: "truly-yours-dsp-2025",
-  storageBucket: "truly-yours-dsp-2025.appspot.com",
-  messagingSenderId: "369021987682",
-  appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// 🔥 LOAD AUTH ON THIS PAGE SO DASHBOARD DOESN'T KICK YOU OUT
-onAuthStateChanged(auth, (user) => {
-  console.log("Upload page sees user:", user ? user.email : "none");
-});
 </script>
 
 </body>
