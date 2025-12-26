@@ -57,12 +57,14 @@
   </div>
 
 
- 
-<script type="module">
+ <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword,
-         browserLocalPersistence, setPersistence }
-from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { 
+  getAuth, 
+  signInWithEmailAndPassword,
+  browserLocalPersistence,
+  setPersistence 
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
@@ -76,21 +78,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 👉 Login function (with persistence)
+// 🔥 THIS keeps you logged in across pages
 window.loginUser = async () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   try {
-    await setPersistence(auth, browserLocalPersistence);  // <-- THIS keeps you logged in
+    await setPersistence(auth, browserLocalPersistence);
     await signInWithEmailAndPassword(auth, email, password);
-
-    location.href = "dashboard.html"; // go to dashboard on success
+    location.href = "dashboard.html"; // SUCCESS
   } catch (err) {
     alert("Login failed: " + err.message);
   }
 };
 </script>
+
+
 
 </body>
 </html>
